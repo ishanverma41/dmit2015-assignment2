@@ -1,0 +1,126 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:faces="jakarta.faces"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:f="jakarta.faces.core"
+        xmlns:h="jakarta.faces.html"
+        xmlns:pt="jakarta.faces.passthrough"
+        xmlns:cc="jakarta.faces.composite"
+        xmlns:c="jakarta.tags.core"
+        xmlns:fn="jakarta.tags.functions"
+        xmlns:o="http://omnifaces.org/ui"
+        xmlns:of="http://omnifaces.org/functions"
+        xmlns:p="http://primefaces.org/ui"
+        template="/WEB-INF/faces-templates/layout.xhtml"
+>
+
+
+    <ui:param name="title" value="Person Calculator"/>
+
+    <ui:define name="maincontent">
+
+        <h1>Person Calculator</h1>
+
+        <p:messages id="messages">
+            <p:autoUpdate/>
+        </p:messages>
+        <p:growl id="growl"/>
+        <p:outputPanel id="outputPanel">
+            <h:outputText
+                    rendered="false"
+                    value="Hello Faces World!"/>
+        </p:outputPanel>
+
+        <h:form prependId="false">
+            <p:focus context="formPanel"/>
+
+
+            <p:panel id="formPanel" header="Form Panel">
+                <div class="ui-fluid">
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >First Name</p:outputLabel>
+                        <p:inputText id="firstname" value="#{personface.person.firstname}"/>
+                    </div>
+
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Last Name</p:outputLabel>
+                        <p:inputText id="lastname" value="#{personface.person.lastname}"/>
+                    </div>
+
+
+                    <div class="field col-12 md:col-2">
+                        <p:outputLabel for="dateValue" >Birth Date</p:outputLabel>
+                        <p:datePicker id="dateValue"
+                                      value="#{personface.person.birthDate}"
+                                      pattern="yyyy-MM-dd"
+                                      showIcon="true"
+                                      monthNavigator="true"
+                                      yearNavigator="true">
+
+
+                            <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+                        </p:datePicker>
+                    </div>
+
+
+                    <div class="field col-12 md:col-2">
+                        <p:outputLabel for="dateValue" >On Date</p:outputLabel>
+                        <p:datePicker id="Ondate"
+                                      value="#{personface.onDate}"
+                                      pattern="yyyy-MM-dd"
+                                      showIcon="true"
+                                      monthNavigator="true"
+                                      yearNavigator="true">
+
+
+                            <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+                        </p:datePicker>
+                    </div>
+
+
+                    <div class="formgroup-inline">
+                        <div class="field">
+                            <p:commandButton value="Current Age"
+                                             update=":messages :growl @form"
+                                             actionListener="#{personface.onCalculateCurrentAge()}"
+                            >
+                            </p:commandButton>
+                        </div>
+
+
+                        <div class="field">
+                            <p:commandButton value="Chinese Zodiac"
+                                             update=":messages :growl @form"
+                                             actionListener="#{personface.onCalculatechineseZodiac()}"
+                            >
+                            </p:commandButton>
+                        </div>
+
+
+                        <div class="field">
+                            <p:commandButton value="On Age"
+                                             update=":messages :growl @form"
+                                             actionListener="#{personface.onCalculateOnAge(personface.onDate)}"
+
+
+                            >
+                            </p:commandButton>
+                        </div>
+
+
+                        <div class="field">
+                            <p:commandButton value="Astrological Sign"
+                                             update=":messages :growl @form"
+                                             actionListener="#{personface.onAstrologicalSign()}"
+                            >
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

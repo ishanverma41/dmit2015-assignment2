@@ -1,0 +1,75 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:h="jakarta.faces.html"
+        xmlns:p="http://primefaces.org/ui"
+        template="/WEB-INF/faces-templates/layout.xhtml"
+>
+
+    <ui:param name="title" value="Income Tax Calculator"/>
+
+    <ui:define name="maincontent">
+        <h1>Income Tax Calculator</h1>
+
+
+        <p:messages id="messages">
+            <p:autoUpdate/>
+        </p:messages>
+        <p:growl id="growl"/>
+        <p:outputPanel id="outputPanel">
+            <h:outputText
+                    rendered="false"
+                    value="Hello Faces World!"/>
+        </p:outputPanel>
+
+        <h:form prependId="false">
+            <p:focus context="formPanel"/>
+
+            <p:panel id="formPanel" header="Form Panel">
+                <div class="ui-fluid">
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Tax Year</p:outputLabel>
+                        <p:inputText id="radius" value="#{personitax.tax.taxYear}"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Income Tax</p:outputLabel>
+                        <p:inputText id="firstname" value="#{personitax.tax.taxableIncome}"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Province</p:outputLabel>
+                        <p:inputText id="lastname" value="#{personitax.tax.province}"/>
+                    </div>
+
+                    <div class="formgroup-inline">
+                        <div class="field">
+                            <p:commandButton value="Fedral Tax"
+                                             update=":messages :growl @form"
+                                             actionListener="#{personitax.federalIncomeTax()}"
+                            >
+                            </p:commandButton>
+                        </div>
+
+                        <div class="field">
+                            <p:commandButton value="Provincial Income Tax"
+                                             update=":messages :growl @form"
+                                             actionListener="#{personitax.provincialIncomeTax()}"
+                            >
+                            </p:commandButton>
+                        </div>
+
+                        <div class="field">
+                            <p:commandButton value="Total Income Tax"
+                                             update=":messages :growl @form"
+                                             actionListener="#{personitax.totalIncomeTax()}"
+                            >
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
